@@ -3,11 +3,18 @@ import "~/styles/globals.css";
 import { Space_Grotesk } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { type Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Apexo",
   description: "How big would you dream, if you knew you could not fail?",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  abstract: "width=device-width, initial-scale=1",
+  appleWebApp: true,
+  applicationName: "Apexo",
+  category: "Business",
+  classification: "Business",
+  keywords: ["apexo", "business", "management", "app"],
 };
 
 const spaceGrotesk = Space_Grotesk({
