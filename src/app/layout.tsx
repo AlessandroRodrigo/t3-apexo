@@ -4,6 +4,7 @@ import { Space_Grotesk } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { type Metadata } from "next";
+import { ThemeProvider } from "~/app/_components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Apexo",
@@ -40,7 +41,14 @@ export default function RootLayout({
       className={`${spaceGrotesk.className} ${spaceGrotesk.variable}`}
     >
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
