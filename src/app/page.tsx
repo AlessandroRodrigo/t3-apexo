@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Navigation } from "~/app/_components/landing/nav";
 
 const navigation = [
   { name: "Home", href: "#" },
@@ -23,15 +24,7 @@ export default async function Home() {
             </a>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="hover:text-primary text-sm font-semibold leading-6 text-stone-200"
-              >
-                {item.name}
-              </a>
-            ))}
+            <Navigation />
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a
