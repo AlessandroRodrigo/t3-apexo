@@ -6,6 +6,8 @@ const openai = new OpenAI({
   apiKey: env.OPENAI_API_KEY,
 });
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   const input = (await req.json()) as {
     threadId: string | null;
