@@ -1,65 +1,59 @@
-import Link from "next/link";
+import Image from "next/image";
 
-import { CreatePost } from "~/app/_components/create-post";
-import { api } from "~/trpc/server";
+const navigation = [
+  { name: "Home", href: "#" },
+  { name: "About us", href: "#" },
+  { name: "Services", href: "#" },
+  { name: "Blog", href: "#" },
+  { name: "Tools", href: "#" },
+];
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-        </div>
+    <div className="min-h-screen bg-stone-950">
+      <header className="absolute inset-x-0 top-0 z-50">
+        <nav
+          className="flex items-center justify-between p-6 lg:px-40"
+          aria-label="Global"
+        >
+          <div className="flex lg:flex-1">
+            <a href="#" className="-m-1.5 p-1.5">
+              <span className="sr-only">Your Company</span>
+              <Image src="/apexo-logo.svg" alt="" width={100} height={100} />
+            </a>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-12">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="hover:text-primary text-sm font-semibold leading-6 text-stone-200"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-stone-200"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </nav>
+      </header>
 
-        <CrudShowcase />
+      <div className="relative isolate px-6 pt-14 lg:px-40">
+        <div className="mr-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="text-left">
+            <h1 className="text-5xl font-bold tracking-tight text-stone-200 sm:text-7xl">
+              How big would you dream, if you knew you{" "}
+              <span className="text-primary">couldn&apos;t fail?</span>
+            </h1>
+          </div>
+        </div>
       </div>
-    </main>
-  );
-}
-
-async function CrudShowcase() {
-  const latestPost = await api.post.getLatest();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
     </div>
   );
 }
