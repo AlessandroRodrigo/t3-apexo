@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   category: "Business",
   classification: "Business",
   keywords: ["apexo", "business", "management", "app"],
+  openGraph: {
+    title: "Apexo",
+    description: "How big would you dream, if you knew you could not fail?",
+    images: [{ url: "/apexo-image.svg" }],
+    siteName: "Apexo",
+    url: "https://apexo.digital",
+  },
 };
 
 const spaceGrotesk = Space_Grotesk({
