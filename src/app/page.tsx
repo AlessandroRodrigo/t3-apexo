@@ -1,14 +1,6 @@
 import Image from "next/image";
 import { Navigation } from "~/app/_components/landing/nav";
 
-const navigation = [
-  { name: "Home", href: "#" },
-  { name: "About us", href: "#" },
-  { name: "Services", href: "#" },
-  { name: "Blog", href: "#" },
-  { name: "Tools", href: "#" },
-];
-
 export default async function Home() {
   return (
     <div className="min-h-screen bg-stone-950">
