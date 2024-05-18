@@ -1,8 +1,7 @@
 "use client";
 
 import { type Message, useAssistant } from "ai/react";
-import { CornerDownLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { CornerDownLeft, Loader2 } from "lucide-react";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 import { ChatHistory } from "~/app/tools/oliwrite/[[...chatId]]/_components/chat-history";
@@ -21,15 +20,15 @@ export default function ScriptWriterPage({
 }: {
   params: { chatId: string[] };
 }) {
-  const router = useRouter();
   const apiUtils = api.useUtils();
   const chatId = params.chatId?.[0];
-  const { data: loadedMessages } = api.chat.getMessagesByThreadId.useQuery(
-    { threadId: chatId },
-    {
-      enabled: !!chatId,
-    },
-  );
+  const { data: loadedMessages, isLoading: messagesLoading } =
+    api.chat.getMessagesByThreadId.useQuery(
+      { threadId: chatId },
+      {
+        enabled: !!chatId,
+      },
+    );
 
   const {
     status,
@@ -79,33 +78,41 @@ export default function ScriptWriterPage({
       <ChatHistory />
 
       <div className="ml-60 flex w-full max-w-[900px] justify-between px-4">
-        <div className="mb-28 flex h-full w-full flex-col pt-4">
-          {messages.length === 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle>OliWrite Pro</CardTitle>
-                <CardDescription>
-                  Elevate your social media game with OliWrite Pro, an advanced
-                  AI inspired by our top scriptwriting expert. This powerful
-                  tool crafts creative and engaging scripts tailored to
-                  captivate your audience. Don’t miss out on transforming your
-                  posts and staying ahead of the competition with the
-                  unparalleled quality and innovation of OliWrite Pro.
-                  Experience the difference and take your content to the next
-                  level!
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          )}
+        {messagesLoading ? (
+          <div className="flex w-full flex-1 items-center justify-center py-16">
+            <Loader2 className="animate-spin" />
+          </div>
+        ) : (
+          <div className="mb-28 flex h-full w-full flex-col pt-4">
+            {messages.length === 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>OliWrite Pro</CardTitle>
+                  <CardDescription>
+                    Elevate your social media game with OliWrite Pro, an
+                    advanced AI inspired by our top scriptwriting expert. This
+                    powerful tool crafts creative and engaging scripts tailored
+                    to captivate your audience. Don’t miss out on transforming
+                    your posts and staying ahead of the competition with the
+                    unparalleled quality and innovation of OliWrite Pro.
+                    Experience the difference and take your content to the next
+                    level!
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            )}
 
-          {messages.map((m: Message, index: number) => (
-            <div key={m.id}>
-              <strong>{`${m.role}: `}</strong>
-              {m.role !== "data" && <Markdown>{m.content}</Markdown>}
-              {index !== messages.length - 1 && <Separator className="my-4" />}
-            </div>
-          ))}
-        </div>
+            {messages.map((m: Message, index: number) => (
+              <div key={m.id}>
+                <strong>{`${m.role}: `}</strong>
+                {m.role !== "data" && <Markdown>{m.content}</Markdown>}
+                {index !== messages.length - 1 && (
+                  <Separator className="my-4" />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="fixed bottom-0 left-1/2 w-full max-w-[900px] -translate-x-1/2 transform space-y-4 border-t bg-background px-2 py-2 shadow-lg sm:rounded-t-xl sm:border md:px-4 md:py-4">
