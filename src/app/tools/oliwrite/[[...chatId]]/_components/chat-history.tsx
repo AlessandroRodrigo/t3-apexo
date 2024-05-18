@@ -1,14 +1,4 @@
-import {
-  Home,
-  LineChart,
-  Loader2,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-  Trash,
-  Users,
-} from "lucide-react";
+import { Loader2, Menu, Trash } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
@@ -86,13 +76,14 @@ interface ChatHistoryItemProps {
   chat: {
     id: number;
     threadId: string | null;
+    name: string | null;
   };
 }
 
 function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
-  const router = useRouter();
   const utils = api.useUtils();
   const params = useParams();
+  const router = useRouter();
   const chatId = params.chatId?.[0];
   const { mutateAsync: deleteChat, isPending: isDeleting } =
     api.chat.deleteById.useMutation({
@@ -113,7 +104,7 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
           chatId === chat.threadId ? "text-primary" : "text-white",
         )}
       >
-        {chat.threadId}
+        {chat.name ?? "Untitled"}
       </span>
       <div className="opacity-100 transition-opacity group-hover:opacity-100 lg:opacity-0">
         {isDeleting ? (
@@ -124,6 +115,10 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
             onClick={(event) => {
               event.preventDefault();
               void deleteChat({ id: chat.id });
+
+              if (chatId === chat.threadId) {
+                router.push("/tools/oliwrite");
+              }
             }}
           />
         )}
