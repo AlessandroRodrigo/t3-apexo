@@ -77,7 +77,6 @@ export const chatRouter = createTRPCRouter({
           order: "asc",
         },
       );
-      console.log(messageIterator.data);
       result.push(...messageIterator.data);
 
       while (messageIterator.hasNextPage()) {
