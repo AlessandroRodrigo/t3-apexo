@@ -57,6 +57,11 @@ export default function ScriptWriterPage() {
                 value={input}
                 placeholder="Type your message here..."
                 onChange={handleInputChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    void submitMessage();
+                  }
+                }}
                 className="h-16 min-h-[60px] w-full resize-none bg-transparent py-[1.3rem] focus-within:outline-none sm:text-sm"
               />
               <Button size="icon" className="h-9 w-9">
