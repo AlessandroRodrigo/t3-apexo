@@ -43,7 +43,7 @@ export default function ScriptWriterPage({
   } = useAssistant({ api: "/api/assistant", threadId: chatId });
   const { mutateAsync: createChat } = api.chat.create.useMutation({
     onSuccess: () => {
-      history.pushState(null, "", `/tools/oliwrite/${threadId}`);
+      router.push(`/tools/oliwrite/${threadId}`);
       void apiUtils.chat.list.invalidate();
     },
   });
@@ -67,8 +67,10 @@ export default function ScriptWriterPage({
     }
   }, [loadedMessages, setMessages]);
 
+  const isLoading = status === "in_progress";
+
   useEffect(() => {
-    if (!chatId && threadId) {
+    if (!chatId && threadId && !isLoading) {
       void createChat({
         threadId,
         messages: messages.map((message) => ({
@@ -78,9 +80,7 @@ export default function ScriptWriterPage({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatId, createChat, threadId]);
-
-  const isLoading = status === "in_progress";
+  }, [chatId, createChat, isLoading, threadId]);
 
   return (
     <div className="relative flex min-h-screen flex-col bg-muted/50 lg:flex-row">
