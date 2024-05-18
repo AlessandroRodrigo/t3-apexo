@@ -26,7 +26,8 @@ export async function POST(req: NextRequest) {
   }
 
   // Get the body
-  const body = await req.text();
+  const buffer = await req.arrayBuffer();
+  const body = new TextDecoder().decode(buffer);
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(env.CLERK_WEBHOOK_SECRET);
