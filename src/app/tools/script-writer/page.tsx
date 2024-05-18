@@ -16,10 +16,12 @@ export default function ScriptWriterPage() {
   const { status, messages, input, submitMessage, handleInputChange } =
     useAssistant({ api: "/api/assistant" });
 
+  const isLoading = status === "in_progress";
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-between bg-muted/50">
-      <div className="flex max-w-6xl flex-col justify-between">
-        <div className="mb-28 flex h-full w-[900px] flex-col pt-8">
+      <div className="flex w-full max-w-6xl flex-col justify-between px-4">
+        <div className="mb-28 flex h-full w-full flex-col pt-4">
           {messages.length === 0 && (
             <Card>
               <CardHeader>
@@ -47,13 +49,11 @@ export default function ScriptWriterPage() {
           ))}
         </div>
 
-        {status === "in_progress" && <div />}
-
-        <div className="fixed bottom-0 left-1/2 w-[900px] -translate-x-1/2 transform space-y-4 border-t bg-background px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
+        <div className="fixed bottom-0 left-1/2 w-full max-w-[900px] -translate-x-1/2 transform space-y-4 border-t bg-background px-2 py-2 shadow-lg sm:rounded-t-xl sm:border md:px-4 md:py-4">
           <form onSubmit={submitMessage}>
-            <div className="flex max-h-60 w-full grow items-center justify-center overflow-hidden bg-background px-4 sm:rounded-md sm:border">
+            <div className="flex max-h-60 w-full grow items-center justify-center overflow-hidden bg-background px-2 sm:rounded-md sm:border md:px-4">
               <textarea
-                disabled={status !== "awaiting_message"}
+                disabled={isLoading}
                 value={input}
                 placeholder="Type your message here..."
                 onChange={handleInputChange}
@@ -62,9 +62,13 @@ export default function ScriptWriterPage() {
                     void submitMessage();
                   }
                 }}
-                className="h-16 min-h-[60px] w-full resize-none bg-transparent py-[1.3rem] focus-within:outline-none sm:text-sm"
+                className="no-scrollbar h-16 min-h-[60px] w-full resize-none bg-transparent py-[1.3rem] focus-within:outline-none sm:text-sm"
               />
-              <Button size="icon" className="h-9 w-9">
+              <Button
+                size="icon"
+                className="h-9 w-10 md:w-9"
+                disabled={isLoading}
+              >
                 <CornerDownLeft className="h-4 w-4" />
               </Button>
             </div>
