@@ -49,6 +49,7 @@ export const chats = createTable(
   {
     id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
     userId: int("user_id", { mode: "number" }),
+    name: text("name", { length: 256 }),
     threadId: text("thread_id"),
     createdAt: int("created_at", { mode: "timestamp" })
       .default(sql`CURRENT_TIMESTAMP`)
@@ -56,7 +57,8 @@ export const chats = createTable(
     updatedAt: int("updatedAt", { mode: "timestamp" }),
   },
   (example) => ({
-    nameIndex: index("chat_thread_idx").on(example.threadId),
+    nameIndex: index("chat_name_idx").on(example.name),
+    threadIndex: index("chat_thread_idx").on(example.threadId),
   }),
 );
 
