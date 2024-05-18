@@ -31,7 +31,7 @@ export function ChatHistory() {
               : "bg-background text-primary"
           }`}
           onClick={() => {
-            router.push(`/tools/oliwrite/${chat.id}`);
+            router.push(`/tools/oliwrite/${chat.threadId}`);
           }}
         >
           {chat.threadId}
