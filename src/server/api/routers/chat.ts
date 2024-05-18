@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import { eq } from "drizzle-orm";
 import OpenAI from "openai";
 import { z } from "zod";
 import { env } from "~/env";
@@ -55,5 +56,14 @@ export const chatRouter = createTRPCRouter({
       }
 
       return result;
+    }),
+  deleteById: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .mutation(({ input }) => {
+      return db.delete(chats).where(eq(chats.id, input.id)).execute();
     }),
 });
