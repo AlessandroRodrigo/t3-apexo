@@ -102,12 +102,10 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
     });
 
   return (
-    <div
+    <Link
+      href={`/tools/oliwrite/${chat.threadId}`}
       key={chat.id}
       className="group flex cursor-pointer items-center justify-between gap-3 rounded-lg transition-all"
-      onClick={() => {
-        router.push(`/tools/oliwrite/${chat.threadId}`);
-      }}
     >
       <span
         className={cn(
@@ -123,12 +121,13 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
         ) : (
           <Trash
             className="h-5 w-5 cursor-pointer text-white transition-colors hover:text-red-500"
-            onClick={() => {
+            onClick={(event) => {
+              event.preventDefault();
               void deleteChat({ id: chat.id });
             }}
           />
         )}
       </div>
-    </div>
+    </Link>
   );
 }
