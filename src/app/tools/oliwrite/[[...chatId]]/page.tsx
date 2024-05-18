@@ -20,6 +20,7 @@ export default function ScriptWriterPage({
 }: {
   params: { chatId: string[] };
 }) {
+  const apiUtils = api.useUtils();
   const chatId = params.chatId?.[0];
   const { data: loadedMessages } = api.chat.getMessagesByThreadId.useQuery(
     { threadId: chatId },
@@ -27,8 +28,6 @@ export default function ScriptWriterPage({
       enabled: !!chatId,
     },
   );
-
-  console.log(loadedMessages);
 
   const {
     status,
@@ -39,6 +38,12 @@ export default function ScriptWriterPage({
     setMessages,
     threadId,
   } = useAssistant({ api: "/api/assistant", threadId: chatId });
+  const { mutateAsync: createChat } = api.chat.create.useMutation({
+    onSuccess: () => {
+      void apiUtils.chat.list.invalidate();
+      window.location.href = `/tools/oliwrite/${threadId}`;
+    },
+  });
 
   useEffect(() => {
     if (loadedMessages) {
@@ -61,9 +66,9 @@ export default function ScriptWriterPage({
 
   useEffect(() => {
     if (!chatId && threadId) {
-      console.log("threadId", threadId);
+      void createChat({ threadId });
     }
-  }, [chatId, threadId]);
+  }, [chatId, createChat, threadId]);
 
   const isLoading = status === "in_progress";
 
