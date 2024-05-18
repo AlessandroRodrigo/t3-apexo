@@ -32,7 +32,7 @@ export const users = createTable(
   {
     id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
     name: text("name", { length: 256 }),
-    clerkId: int("clerk_id", { mode: "number" }),
+    clerkId: text("clerk_id", { length: 256 }),
     stripeId: text("stripe_id", { length: 256 }),
     createdAt: int("created_at", { mode: "timestamp" })
       .default(sql`CURRENT_TIMESTAMP`)
