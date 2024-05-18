@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
 
@@ -74,71 +75,75 @@ export default function ScriptWriterPage({
   const isLoading = status === "in_progress";
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between bg-muted/50">
+    <div className="relative flex min-h-screen flex-col bg-muted/50 lg:flex-row">
       <ChatHistory />
 
-      <div className="ml-60 flex w-full max-w-[900px] justify-between px-4">
-        {messagesLoading ? (
-          <div className="flex w-full flex-1 items-center justify-center py-16">
-            <Loader2 className="animate-spin" />
-          </div>
-        ) : (
-          <div className="mb-28 flex h-full w-full flex-col pt-4">
-            {messages.length === 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>OliWrite Pro</CardTitle>
-                  <CardDescription>
-                    Elevate your social media game with OliWrite Pro, an
-                    advanced AI inspired by our top scriptwriting expert. This
-                    powerful tool crafts creative and engaging scripts tailored
-                    to captivate your audience. Don’t miss out on transforming
-                    your posts and staying ahead of the competition with the
-                    unparalleled quality and innovation of OliWrite Pro.
-                    Experience the difference and take your content to the next
-                    level!
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            )}
+      <div className="flex flex-1 flex-col items-center justify-between gap-4">
+        <div className="flex w-full max-w-[900px] justify-between">
+          {messagesLoading ? (
+            <div className="flex w-full flex-1 items-center justify-center py-16">
+              <Loader2 className="animate-spin" />
+            </div>
+          ) : (
+            <div className="flex w-full flex-1 flex-col">
+              {messages.length === 0 && (
+                <Card className="mx-4 mt-4">
+                  <CardHeader>
+                    <CardTitle>OliWrite Pro</CardTitle>
+                    <CardDescription>
+                      Elevate your social media game with OliWrite Pro, an
+                      advanced AI inspired by our top scriptwriting expert. This
+                      powerful tool crafts creative and engaging scripts
+                      tailored to captivate your audience. Don’t miss out on
+                      transforming your posts and staying ahead of the
+                      competition with the unparalleled quality and innovation
+                      of OliWrite Pro. Experience the difference and take your
+                      content to the next level!
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              )}
 
-            {messages.map((m: Message, index: number) => (
-              <div key={m.id}>
-                <strong>{`${m.role}: `}</strong>
-                {m.role !== "data" && <Markdown>{m.content}</Markdown>}
-                {index !== messages.length - 1 && (
-                  <Separator className="my-4" />
-                )}
+              <div className="mx-4 mt-4">
+                {messages.map((m: Message, index: number) => (
+                  <div key={m.id}>
+                    <strong>{`${m.role}: `}</strong>
+                    {m.role !== "data" && <Markdown>{m.content}</Markdown>}
+                    {index !== messages.length - 1 && (
+                      <Separator className="my-4" />
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+            </div>
+          )}
+        </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[900px] -translate-x-1/2 transform space-y-4 border-t bg-background px-2 py-2 shadow-lg sm:rounded-t-xl sm:border md:px-4 md:py-4">
-        <form onSubmit={submitMessage}>
-          <div className="flex max-h-60 w-full grow items-center justify-center overflow-hidden bg-background px-2 sm:rounded-md sm:border md:px-4">
-            <textarea
-              disabled={isLoading}
-              value={input}
-              placeholder="Type your message here..."
-              onChange={handleInputChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  void submitMessage();
-                }
-              }}
-              className="no-scrollbar h-16 min-h-[60px] w-full resize-none bg-transparent py-[1.3rem] focus-within:outline-none sm:text-sm"
-            />
-            <Button
-              size="icon"
-              className="h-9 w-10 md:w-9"
-              disabled={isLoading}
-            >
-              <CornerDownLeft className="h-4 w-4" />
-            </Button>
-          </div>
-        </form>
+        <div className="sticky bottom-0 w-full max-w-[700px] space-y-4 border-t bg-background px-2 py-2 shadow-lg sm:rounded-t-xl sm:border md:px-4 md:py-4">
+          <form onSubmit={submitMessage}>
+            <div className="flex max-h-60 w-full grow items-center justify-center overflow-hidden bg-background px-2 sm:rounded-md sm:border md:px-4">
+              <textarea
+                disabled={isLoading}
+                value={input}
+                placeholder="Type your message here..."
+                onChange={handleInputChange}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    void submitMessage();
+                  }
+                }}
+                className="no-scrollbar h-16 min-h-[60px] w-full resize-none bg-transparent py-[1.3rem] focus-within:outline-none sm:text-sm"
+              />
+              <Button
+                size="icon"
+                className="h-9 w-10 md:w-9"
+                disabled={isLoading}
+              >
+                <CornerDownLeft className="h-4 w-4" />
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
