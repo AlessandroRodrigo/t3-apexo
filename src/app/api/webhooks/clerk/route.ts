@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
   }
 
   const eventType = evt.type;
-  if (eventType === "user.created") {
+  if (eventType === "user.updated") {
     const result = await handleUserCreatedEvent(evt);
 
     if (!result) {
