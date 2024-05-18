@@ -2,6 +2,7 @@
 
 import { type Message, useAssistant } from "ai/react";
 import { CornerDownLeft, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 import { ChatHistory } from "~/app/tools/oliwrite/[[...chatId]]/_components/chat-history";
@@ -12,7 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
 
@@ -21,6 +21,7 @@ export default function ScriptWriterPage({
 }: {
   params: { chatId: string[] };
 }) {
+  const router = useRouter();
   const apiUtils = api.useUtils();
   const chatId = params.chatId?.[0];
   const { data: loadedMessages, isLoading: messagesLoading } =
@@ -68,8 +69,15 @@ export default function ScriptWriterPage({
 
   useEffect(() => {
     if (!chatId && threadId) {
-      void createChat({ threadId });
+      void createChat({
+        threadId,
+        messages: messages.map((message) => ({
+          content: message.content,
+          role: message.role,
+        })),
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, createChat, threadId]);
 
   const isLoading = status === "in_progress";
