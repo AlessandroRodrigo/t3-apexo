@@ -2,6 +2,7 @@
 
 import { type Message, useAssistant } from "ai/react";
 import { CornerDownLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
 import { ChatHistory } from "~/app/tools/oliwrite/[[...chatId]]/_components/chat-history";
@@ -20,6 +21,7 @@ export default function ScriptWriterPage({
 }: {
   params: { chatId: string[] };
 }) {
+  const router = useRouter();
   const apiUtils = api.useUtils();
   const chatId = params.chatId?.[0];
   const { data: loadedMessages } = api.chat.getMessagesByThreadId.useQuery(
@@ -40,8 +42,8 @@ export default function ScriptWriterPage({
   } = useAssistant({ api: "/api/assistant", threadId: chatId });
   const { mutateAsync: createChat } = api.chat.create.useMutation({
     onSuccess: () => {
+      history.pushState(null, "", `/tools/oliwrite/${threadId}`);
       void apiUtils.chat.list.invalidate();
-      window.location.href = `/tools/oliwrite/${threadId}`;
     },
   });
 
