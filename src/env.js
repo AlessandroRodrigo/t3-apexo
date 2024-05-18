@@ -14,6 +14,7 @@ export const env = createEnv({
     OPENAI_API_KEY: z.string(),
     OPENAI_ASSISTANT_ID: z.string(),
     CLERK_SECRET_KEY: z.string(),
+    CLERK_WEBHOOK_SECRET: z.string(),
     TURSO_CONNECTION_URL: z.string(),
     TURSO_AUTH_TOKEN: z.string(),
   },
@@ -42,6 +43,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     TURSO_CONNECTION_URL: process.env.TURSO_CONNECTION_URL,
     TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
+    CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
