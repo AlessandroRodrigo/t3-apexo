@@ -74,7 +74,7 @@ const tools: { title: string; href: string; description: string }[] = [
     title: "OliWrite Pro",
     description:
       "Experience the power of OliWrite Pro, an AI inspired by our top scriptwriting expert, to transform your social media content. Don’t miss the chance to elevate your posts and stay ahead of the competition!",
-    href: "/tools/script-writer",
+    href: "/tools/oliwrite",
   },
 ];
 
