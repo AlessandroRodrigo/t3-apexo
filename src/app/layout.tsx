@@ -1,6 +1,7 @@
 import "~/styles/globals.css";
 
 import { Space_Grotesk } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { type Metadata } from "next";
@@ -41,14 +42,16 @@ export default function RootLayout({
       className={`${spaceGrotesk.className} ${spaceGrotesk.variable}`}
     >
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ThemeProvider>
+        <ClerkProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
