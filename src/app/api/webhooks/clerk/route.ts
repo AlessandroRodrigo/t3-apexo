@@ -30,6 +30,7 @@ export async function POST(req: NextRequest) {
   const body = new TextDecoder().decode(buffer);
 
   // Create a new Svix instance with your secret.
+  console.log(env.CLERK_WEBHOOK_SECRET);
   const wh = new Webhook(env.CLERK_WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
