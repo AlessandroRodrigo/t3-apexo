@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { Navigation } from "~/app/_components/landing/nav";
 
@@ -19,12 +20,19 @@ export default async function Home() {
             <Navigation />
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
-              className="text-sm font-semibold leading-6 text-stone-200"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
+            <SignedOut>
+              <SignInButton>
+                <a
+                  href="#"
+                  className="text-sm font-semibold leading-6 text-stone-200"
+                >
+                  Log in <span aria-hidden="true">&rarr;</span>
+                </a>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
         </nav>
       </header>
