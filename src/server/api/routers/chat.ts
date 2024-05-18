@@ -73,7 +73,11 @@ export const chatRouter = createTRPCRouter({
       const result = [];
       let messageIterator = await openai.beta.threads.messages.list(
         input.threadId,
+        {
+          order: "asc",
+        },
       );
+      console.log(messageIterator.data);
       result.push(...messageIterator.data);
 
       while (messageIterator.hasNextPage()) {
