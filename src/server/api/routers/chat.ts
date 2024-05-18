@@ -15,13 +15,39 @@ export const chatRouter = createTRPCRouter({
     .input(
       z.object({
         threadId: z.string(),
+        messages: z.array(
+          z.object({
+            role: z.string(),
+            content: z.string(),
+          }),
+        ),
       }),
     )
-    .mutation(({ input }) => {
+    .mutation(async ({ input }) => {
+      const openai = new OpenAI({
+        apiKey: env.OPENAI_API_KEY,
+      });
+
+      const nameGenerated = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content:
+              "Generate a simple and objective name for this chat, at max 3 words",
+          },
+          {
+            role: "user",
+            content: input.messages.map((message) => message.content).join(" "),
+          },
+        ],
+      });
+
       return db
         .insert(chats)
         .values({
           threadId: input.threadId,
+          name: nameGenerated.choices[0]?.message.content,
           userId: 1,
         })
         .execute();
