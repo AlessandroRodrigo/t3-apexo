@@ -1,39 +1,32 @@
-import { Webhook } from "svix";
 import { type WebhookEvent } from "@clerk/nextjs/server";
-import { type NextApiRequest, type NextApiResponse } from "next";
-import { buffer } from "micro";
+import { type NextRequest } from "next/server";
+import { Webhook } from "svix";
 import { env } from "~/env";
 import { db } from "~/server/db";
 import { users } from "~/server/db/schema";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
-    res.status(405);
-    return;
+    return new Response(null, { status: 405 });
   }
 
   // Get the headers
-  const svix_id = req.headers["svix-id"] as string;
-  const svix_timestamp = req.headers["svix-timestamp"] as string;
-  const svix_signature = req.headers["svix-signature"] as string;
+  const svix_id = req.headers.get("svix-id")!;
+  const svix_timestamp = req.headers.get("svix-timestamp")!;
+  const svix_signature = req.headers.get("svix-signature")!;
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
-    res.status(400).json({ error: "Error occured -- no svix headers" });
-    return;
+    return new Response(
+      JSON.stringify({
+        error: "Error occured -- no svix headers",
+      }),
+      { status: 400 },
+    );
   }
 
   // Get the body
-  const body = (await buffer(req))?.toString();
+  const body = await req.text();
 
   // Create a new Svix instance with your secret.
   const wh = new Webhook(env.CLERK_WEBHOOK_SECRET);
@@ -49,8 +42,7 @@ export default async function handler(
     }) as WebhookEvent;
   } catch (err) {
     console.error("Error verifying webhook:", err);
-    res.status(400).json({ Error: err });
-    return;
+    return new Response(JSON.stringify(err), { status: 400 });
   }
 
   const eventType = evt.type;
@@ -58,12 +50,16 @@ export default async function handler(
     const result = await handleUserCreatedEvent(evt);
 
     if (!result) {
-      res.status(500);
-      return;
+      return new Response(
+        JSON.stringify({
+          error: "Error occured -- no result",
+        }),
+        { status: 500 },
+      );
     }
   }
 
-  res.status(200);
+  return new Response(null, { status: 200 });
 }
 
 async function handleUserCreatedEvent(evt: WebhookEvent) {
