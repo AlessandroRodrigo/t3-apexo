@@ -20,7 +20,7 @@ export default function ScriptWriterPage() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between bg-muted/50">
-      <div className="flex w-full max-w-6xl flex-col justify-between px-4">
+      <div className="flex w-full max-w-[900px] flex-col justify-between px-4">
         <div className="mb-28 flex h-full w-full flex-col pt-4">
           {messages.length === 0 && (
             <Card>
