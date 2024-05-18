@@ -1,4 +1,4 @@
-import { Loader2, Menu, Trash } from "lucide-react";
+import { Loader2, Menu, Pencil, Plus, Trash } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
@@ -16,7 +16,12 @@ import { cn } from "~/lib/utils";
 import { api } from "~/trpc/react";
 
 export function ChatHistory() {
+  const router = useRouter();
   const { isLoading, data: chats } = api.chat.list.useQuery();
+
+  function handleCreateNewChat() {
+    router.push("/tools/oliwrite");
+  }
 
   return isLoading ? (
     <div>Loading...</div>
@@ -36,11 +41,19 @@ export function ChatHistory() {
           </SheetTrigger>
 
           <SheetContent side="left" className="flex flex-col">
-            <SheetHeader>
+            <SheetHeader className="text-left">
               <SheetTitle>Chats</SheetTitle>
               <SheetDescription>
                 Select a chat to view its history
               </SheetDescription>
+              <Button
+                className="flex items-center gap-2"
+                variant="outline"
+                onClick={handleCreateNewChat}
+              >
+                <Pencil className="h-5 w-5" />
+                Create new chat
+              </Button>
             </SheetHeader>
             <Separator className="my-4" />
             <div className="flex-1">
@@ -53,11 +66,24 @@ export function ChatHistory() {
           </SheetContent>
         </Sheet>
       </header>
-      <div className="sticky top-0 hidden min-h-screen w-4/12 max-w-72 border-r bg-muted/40 lg:block lg:w-3/12">
+      <div className="sticky top-0 hidden min-h-screen w-4/12 max-w-96 border-r bg-muted/40 lg:block lg:w-4/12">
         <div className="flex h-full max-h-screen flex-col gap-2">
-          <CardHeader className="flex border-b px-4 lg:px-6">
-            <CardTitle>Chats</CardTitle>
-            <CardDescription>Select a chat to view its history</CardDescription>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b px-4 lg:gap-4 lg:px-6">
+            <div className="shrink">
+              <CardTitle>Chats</CardTitle>
+              <CardDescription>
+                Select a chat to view its history
+              </CardDescription>
+            </div>
+
+            <Button
+              size="icon"
+              variant="outline"
+              className="mt-0"
+              onClick={handleCreateNewChat}
+            >
+              <Plus className="h-5 w-5" />
+            </Button>
           </CardHeader>
           <div className="flex-1">
             <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
