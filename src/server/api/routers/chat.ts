@@ -3,15 +3,15 @@ import { eq } from "drizzle-orm";
 import OpenAI from "openai";
 import { z } from "zod";
 import { env } from "~/env";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { db } from "~/server/db";
 import { chats } from "~/server/db/schema";
 
 export const chatRouter = createTRPCRouter({
-  list: publicProcedure.query(() => {
+  list: protectedProcedure.query(() => {
     return db.query.chats.findMany().execute();
   }),
-  create: publicProcedure
+  create: protectedProcedure
     .input(
       z.object({
         threadId: z.string(),
@@ -52,7 +52,7 @@ export const chatRouter = createTRPCRouter({
         })
         .execute();
     }),
-  getMessagesByThreadId: publicProcedure
+  getMessagesByThreadId: protectedProcedure
     .input(
       z.object({
         threadId: z.string().optional(),
@@ -86,7 +86,7 @@ export const chatRouter = createTRPCRouter({
 
       return result;
     }),
-  deleteById: publicProcedure
+  deleteById: protectedProcedure
     .input(
       z.object({
         id: z.number(),
