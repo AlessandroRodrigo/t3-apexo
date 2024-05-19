@@ -83,8 +83,6 @@ export default function ScriptWriterPage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, createChat, isLoading, threadId]);
 
-  console.log(messages);
-
   return (
     <div className="relative flex min-h-screen flex-col bg-muted/50 lg:flex-row">
       <ChatHistory />
