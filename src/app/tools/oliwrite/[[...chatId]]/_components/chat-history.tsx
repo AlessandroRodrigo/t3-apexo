@@ -23,9 +23,7 @@ export function ChatHistory() {
     router.push("/tools/oliwrite");
   }
 
-  return isLoading ? (
-    <div>Loading...</div>
-  ) : (
+  return (
     <>
       <header className="flex h-14 items-center justify-end gap-4 justify-self-end px-4 lg:hidden lg:h-[60px] lg:px-6">
         <Sheet>
@@ -86,11 +84,17 @@ export function ChatHistory() {
             </Button>
           </CardHeader>
           <div className="flex-1">
-            <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-              {chats?.map((chat) => (
-                <ChatHistoryItem key={chat.id} chat={chat} />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="flex h-full items-start justify-center">
+                <Loader2 className="h-5 w-5 animate-spin" />
+              </div>
+            ) : (
+              <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
+                {chats?.map((chat) => (
+                  <ChatHistoryItem key={chat.id} chat={chat} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
