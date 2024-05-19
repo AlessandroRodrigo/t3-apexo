@@ -1,10 +1,11 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { Navigation } from "~/app/_components/landing/nav";
+import { Separator } from "~/components/ui/separator";
 
 export default async function Home() {
   return (
-    <div className="min-h-screen bg-stone-950">
+    <main className="bg-stone-950">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-40"
@@ -37,16 +38,35 @@ export default async function Home() {
         </nav>
       </header>
 
-      <div className="relative isolate px-6 pt-14 lg:px-40">
-        <div className="mr-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <section className="relative isolate flex min-h-screen gap-4 px-6 pt-14 lg:px-40">
+        <div className="mr-auto flex max-w-2xl grow items-center py-32 sm:py-48 lg:py-56">
           <div className="text-left">
             <h1 className="text-5xl font-bold tracking-tight text-stone-200 sm:text-7xl">
-              How big would you dream, if you knew you{" "}
+              How big would you dream, if you knew you
               <span className="text-primary">couldn&apos;t fail?</span>
             </h1>
           </div>
         </div>
-      </div>
-    </div>
+        <Image
+          className="shrink"
+          src="/apexo-brain.svg"
+          alt=""
+          width={500}
+          height={500}
+        />
+      </section>
+
+      <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
+        <h2 className="text-5xl font-bold">
+          What <br /> We Do
+        </h2>
+        <Separator orientation="vertical" className="h-24 w-1" />
+        <p className="max-w-md text-lg text-stone-400">
+          Imagine a world where your business is limitless. Where technology and
+          creativity come together to unlock new possibilities. Welcome to
+          Apexo, your partner in AI-driven innovation.
+        </p>
+      </section>
+    </main>
   );
 }
