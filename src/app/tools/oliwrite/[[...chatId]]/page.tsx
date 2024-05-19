@@ -15,6 +15,7 @@ import {
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
+import gfm from "remark-gfm";
 
 export default function ScriptWriterPage({
   params,
@@ -82,6 +83,8 @@ export default function ScriptWriterPage({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatId, createChat, isLoading, threadId]);
 
+  console.log(messages);
+
   return (
     <div className="relative flex min-h-screen flex-col bg-muted/50 lg:flex-row">
       <ChatHistory />
@@ -116,7 +119,16 @@ export default function ScriptWriterPage({
                 {messages.map((m: Message, index: number) => (
                   <div key={m.id}>
                     <strong>{`${m.role}: `}</strong>
-                    {m.role !== "data" && <Markdown>{m.content}</Markdown>}
+                    {m.role !== "data" && (
+                      <Markdown
+                        remarkPlugins={[gfm]}
+                        components={{
+                          hr: () => <div className="my-4" />,
+                        }}
+                      >
+                        {m.content}
+                      </Markdown>
+                    )}
                     {index !== messages.length - 1 && (
                       <Separator className="my-4" />
                     )}
