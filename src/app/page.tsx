@@ -45,7 +45,7 @@ export default async function Home() {
           <div className="mr-auto flex max-w-2xl grow items-center py-32 sm:py-48 lg:py-56">
             <div className="text-left">
               <h1 className="text-5xl font-bold tracking-tight text-stone-200 sm:text-7xl">
-                How big would you dream, if you knew you
+                How big would you dream, if you knew you{" "}
                 <span className="text-primary">couldn&apos;t fail?</span>
               </h1>
             </div>
