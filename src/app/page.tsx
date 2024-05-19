@@ -1,6 +1,8 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import { Navigation } from "~/app/_components/landing/nav";
+import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 
 export default async function Home() {
@@ -38,22 +40,30 @@ export default async function Home() {
         </nav>
       </header>
 
-      <section className="relative isolate flex min-h-screen gap-4 px-6 pt-14 lg:px-40">
-        <div className="mr-auto flex max-w-2xl grow items-center py-32 sm:py-48 lg:py-56">
-          <div className="text-left">
-            <h1 className="text-5xl font-bold tracking-tight text-stone-200 sm:text-7xl">
-              How big would you dream, if you knew you
-              <span className="text-primary">couldn&apos;t fail?</span>
-            </h1>
+      <section className="relative isolate flex min-h-screen flex-col px-6 pt-14 lg:px-40">
+        <div className="flex gap-4">
+          <div className="mr-auto flex max-w-2xl grow items-center py-32 sm:py-48 lg:py-56">
+            <div className="text-left">
+              <h1 className="text-5xl font-bold tracking-tight text-stone-200 sm:text-7xl">
+                How big would you dream, if you knew you
+                <span className="text-primary">couldn&apos;t fail?</span>
+              </h1>
+            </div>
           </div>
+          <Image
+            className="shrink"
+            src="/apexo-brain.svg"
+            alt=""
+            width={500}
+            height={500}
+          />
         </div>
-        <Image
-          className="shrink"
-          src="/apexo-brain.svg"
-          alt=""
-          width={500}
-          height={500}
-        />
+        <div className="flex justify-center">
+          <Button size="lg" className="flex gap-2">
+            <ArrowDown />
+            Discover all solutions
+          </Button>
+        </div>
       </section>
 
       <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
@@ -66,6 +76,10 @@ export default async function Home() {
           creativity come together to unlock new possibilities. Welcome to
           Apexo, your partner in AI-driven innovation.
         </p>
+      </section>
+
+      <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
+        <h2 className="text-4xl font-bold">Trusted by:</h2>
       </section>
     </main>
   );
