@@ -64,8 +64,8 @@ export function ChatHistory() {
           </SheetContent>
         </Sheet>
       </header>
-      <div className="sticky top-0 hidden min-h-screen w-4/12 max-w-96 border-r bg-muted/40 lg:block lg:w-4/12">
-        <div className="flex h-full max-h-screen flex-col gap-2">
+      <div className="hidden min-h-screen w-4/12 max-w-96 border-r bg-muted/40 lg:block lg:w-4/12">
+        <div className="sticky top-0 flex h-full max-h-screen flex-col gap-2">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b px-4 lg:gap-4 lg:px-6">
             <div className="shrink">
               <CardTitle>Chats</CardTitle>
