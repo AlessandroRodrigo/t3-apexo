@@ -138,7 +138,7 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
       </span>
       <div className="opacity-100 transition-opacity group-hover:opacity-100 lg:opacity-0">
         {isDeleting ? (
-          <Loader2 className="h-5 w-5" />
+          <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
           <Trash
             className="h-5 w-5 cursor-pointer text-white transition-colors hover:text-red-500"
