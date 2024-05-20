@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { ArrowDown, Instagram } from "lucide-react";
 import Image from "next/image";
+import { CallToAction } from "~/app/_components/landing/call-to-action";
 import { Navigation } from "~/app/_components/landing/nav";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
@@ -76,6 +77,8 @@ export default async function Home() {
       <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
         <h2 className="text-4xl font-bold text-stone-200">Trusted by:</h2>
       </section>
+
+      <CallToAction />
 
       <div className="bg-gradient-to-b from-stone-950 to-stone-900">
         <footer className="relative isolate flex h-72 flex-col justify-between gap-8 px-6 py-6 md:h-96 md:px-40 md:py-14">
