@@ -61,7 +61,7 @@ export default async function Home() {
       </section>
 
       <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
-        <h2 className="bg-gradient-to-l from-secondary from-10% to-stone-200 to-90% bg-clip-text text-5xl font-bold text-transparent">
+        <h2 className="bg-gradient-to-l from-stone-600 from-10% to-stone-200 to-90% bg-clip-text text-5xl font-bold text-transparent">
           What <br /> We Do
         </h2>
 
