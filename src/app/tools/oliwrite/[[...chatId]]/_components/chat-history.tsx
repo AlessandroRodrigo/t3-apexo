@@ -88,7 +88,7 @@ export function ChatHistory() {
           </CardHeader>
           <div className="flex flex-1">
             {isLoading ? (
-              <div className="flex h-full items-start justify-center">
+              <div className="flex h-full flex-1 items-center justify-center">
                 <Loader2 className="h-5 w-5 animate-spin" />
               </div>
             ) : (
