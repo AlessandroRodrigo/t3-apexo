@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 import { CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import { Separator } from "~/components/ui/separator";
 import {
   Sheet,
@@ -56,9 +57,11 @@ export function ChatHistory() {
             <Separator className="my-4" />
             <div className="flex-1">
               <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-                {chats?.map((chat) => (
-                  <ChatHistoryItem key={chat.id} chat={chat} />
-                ))}
+                <ScrollArea className="h-[70vh]">
+                  {chats?.map((chat) => (
+                    <ChatHistoryItem key={chat.id} chat={chat} />
+                  ))}
+                </ScrollArea>
               </div>
             </div>
           </SheetContent>
@@ -83,16 +86,18 @@ export function ChatHistory() {
               <Plus className="h-5 w-5" />
             </Button>
           </CardHeader>
-          <div className="flex-1">
+          <div className="flex flex-1">
             {isLoading ? (
               <div className="flex h-full items-start justify-center">
                 <Loader2 className="h-5 w-5 animate-spin" />
               </div>
             ) : (
-              <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-                {chats?.map((chat) => (
-                  <ChatHistoryItem key={chat.id} chat={chat} />
-                ))}
+              <div className="grid flex-1 items-start space-y-4 px-2 text-sm font-medium lg:px-4">
+                <ScrollArea className="h-[85vh]">
+                  {chats?.map((chat) => (
+                    <ChatHistoryItem key={chat.id} chat={chat} />
+                  ))}
+                </ScrollArea>
               </div>
             )}
           </div>
@@ -126,7 +131,7 @@ function ChatHistoryItem({ chat }: ChatHistoryItemProps) {
     <Link
       href={`/tools/oliwrite/${chat.threadId}`}
       key={chat.id}
-      className="group flex cursor-pointer items-center justify-between gap-3 rounded-lg transition-all"
+      className="group flex cursor-pointer items-center justify-between gap-3 rounded-lg px-4 py-2 transition-all"
     >
       <span
         className={cn(
