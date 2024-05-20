@@ -77,28 +77,35 @@ export default async function Home() {
         <h2 className="text-4xl font-bold text-stone-200">Trusted by:</h2>
       </section>
 
-      <footer className="relative isolate flex h-72 flex-col justify-between gap-8 px-6 py-6 md:h-96 md:px-40 md:py-14">
-        <Image src="/apexo-logo.svg" alt="" width={100} height={100} />
+      <div className="bg-gradient-to-b from-stone-950 to-stone-900">
+        <footer className="relative isolate flex h-72 flex-col justify-between gap-8 px-6 py-6 md:h-96 md:px-40 md:py-14">
+          <Image src="/apexo-logo.svg" alt="" width={100} height={100} />
 
-        <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center md:gap-0">
-          <div className="flex items-center gap-2">
-            <div className="rounded-full border border-stone-500 p-2">
-              <Image src="/instagram-logo.svg" alt="" width={20} height={20} />
+          <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center md:gap-0">
+            <div className="flex items-center gap-2">
+              <div className="rounded-full border border-stone-500 p-2">
+                <Image
+                  src="/instagram-logo.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div className="rounded-full border border-stone-500 p-2">
+                <Image src="/whatsapp-logo.svg" alt="" width={20} height={20} />
+              </div>
             </div>
-            <div className="rounded-full border border-stone-500 p-2">
-              <Image src="/whatsapp-logo.svg" alt="" width={20} height={20} />
+
+            <div className="flex flex-col gap-2">
+              <span>
+                A product of <strong>Apexo</strong>
+              </span>
+
+              <span>2024 | All rights reserved</span>
             </div>
           </div>
-
-          <div className="flex flex-col gap-2">
-            <span>
-              A product of <strong>Apexo</strong>
-            </span>
-
-            <span>2024 | All rights reserved</span>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </main>
   );
 }
