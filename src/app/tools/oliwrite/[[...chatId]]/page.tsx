@@ -5,6 +5,7 @@ import { CornerDownLeft, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Markdown from "react-markdown";
+import gfm from "remark-gfm";
 import { ChatHistory } from "~/app/tools/oliwrite/[[...chatId]]/_components/chat-history";
 import { Button } from "~/components/ui/button";
 import {
@@ -15,7 +16,42 @@ import {
 } from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 import { api } from "~/trpc/react";
-import gfm from "remark-gfm";
+
+// export const metadata: Metadata = {
+//   title: "Apexo | OliWrite - Elevate your script writing game",
+//   description:
+//     "Oliwrite is a versatile tool offered by Apexo Digital, designed to enhance your digital writing experience.",
+//   icons: [{ rel: "icon", url: "/favicon.ico" }],
+//   abstract: "width=device-width, initial-scale=1",
+//   appleWebApp: true,
+//   applicationName: "Apexo",
+//   category: "Business",
+//   classification: "Business",
+//   keywords: [
+//     "Apexo Digital",
+//     "Oliwrite",
+//     "writing tool",
+//     "digital writing",
+//     "content creation",
+//     "writing enhancement",
+//   ],
+//   openGraph: {
+//     title: "Apexo | OliWrite - Elevate your script writing game",
+//     description:
+//       "Oliwrite is a versatile tool offered by Apexo Digital, designed to enhance your digital writing experience.",
+//     images: [{ url: "/apexo-image.svg" }],
+//     siteName: "Apexo",
+//     url: "https://www.apexo.digital/tools/oliwrite",
+//     type: "website",
+//   },
+//   twitter: {
+//     card: "summary_large_image",
+//     title: "Apexo | OliWrite - Elevate your script writing game",
+//     description: "Oliwrite is a versatile tool offered by Apexo Digital.",
+//     images: [{ url: "/apexo-image.svg" }],
+//     site: "@apexodigital",
+//   },
+// };
 
 export default function ScriptWriterPage({
   params,
