@@ -4,6 +4,13 @@ import Image from "next/image";
 import { CallToAction } from "~/app/_components/landing/call-to-action";
 import { Navigation } from "~/app/_components/landing/nav";
 import { Button } from "~/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "~/components/ui/card";
 import { Separator } from "~/components/ui/separator";
 
 export default async function Home() {
@@ -76,6 +83,74 @@ export default async function Home() {
 
       <section className="isolate flex flex-row items-center justify-center gap-16 px-6 py-20 lg:px-40">
         <h2 className="text-4xl font-bold text-stone-200">Trusted by:</h2>
+      </section>
+
+      <section className="relative isolate flex flex-col px-6 pt-14 lg:px-40">
+        <div className="grid grid-cols-1 grid-rows-3 gap-4 lg:grid-cols-6">
+          <Card className="lg:col-span-4">
+            <CardHeader>
+              <CardTitle>AI chat support</CardTitle>
+              <CardDescription>
+                Streamline your operations with our AI-powered automation tools,
+                designed to optimize workflows and increase efficiency.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <Image
+                src="ai-chat-support.svg"
+                alt=""
+                width={250}
+                height={500}
+              />
+            </CardContent>
+          </Card>
+          <Card className="flex flex-col justify-between lg:col-span-2 lg:row-span-2">
+            <CardHeader>
+              <CardTitle>Design and Content Creation</CardTitle>
+              <CardDescription>
+                Elevate your brand with our expert design and content creation
+                services, tailored to your unique needs.
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              <Image
+                src="design-content-creation.svg"
+                alt=""
+                width={250}
+                height={500}
+              />
+            </CardContent>
+          </Card>
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle>Boost your business</CardTitle>
+              <CardDescription>
+                Elevate your brand with our expert design and content creation
+                services, tailored to your unique needs.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle>SEO Optimization</CardTitle>
+              <CardDescription>
+                Boost your online visibility with our SEO optimization services,
+                designed to drive more traffic and conversions to your website.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <Card className="lg:col-span-6">
+            <CardHeader>
+              <CardTitle>Software Development</CardTitle>
+              <CardDescription>
+                Create innovative software solutions that drive business growth
+                and customer engagement.
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
       </section>
 
       <CallToAction />
