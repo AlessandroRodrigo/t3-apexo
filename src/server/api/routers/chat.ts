@@ -8,8 +8,20 @@ import { db } from "~/server/db";
 import { chats } from "~/server/db/schema";
 
 export const chatRouter = createTRPCRouter({
-  list: protectedProcedure.query(() => {
-    return db.query.chats.findMany().execute();
+  list: protectedProcedure.query(async ({ ctx }) => {
+    const user = await db.query.users
+      .findFirst({
+        where: (users, { eq }) => eq(users.clerkId, ctx.auth.userId),
+      })
+      .execute();
+
+    if (!user) throw new TRPCError({ code: "NOT_FOUND" });
+
+    return db.query.chats
+      .findMany({
+        where: (chats, { eq }) => eq(chats.userId, user?.id),
+      })
+      .execute();
   }),
   create: protectedProcedure
     .input(
