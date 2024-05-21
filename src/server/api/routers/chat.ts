@@ -35,7 +35,15 @@ export const chatRouter = createTRPCRouter({
         ),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      const user = await db.query.users
+        .findFirst({
+          where: (users, { eq }) => eq(users.clerkId, ctx.auth.userId),
+        })
+        .execute();
+
+      if (!user) throw new TRPCError({ code: "NOT_FOUND" });
+
       const openai = new OpenAI({
         apiKey: env.OPENAI_API_KEY,
       });
@@ -60,7 +68,7 @@ export const chatRouter = createTRPCRouter({
         .values({
           threadId: input.threadId,
           name: nameGenerated.choices[0]?.message.content,
-          userId: 1,
+          userId: user.id,
         })
         .execute();
     }),
