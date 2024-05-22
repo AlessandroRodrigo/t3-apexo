@@ -57,7 +57,7 @@ export function ChatHistory() {
             <Separator className="my-4" />
             <div className="flex-1">
               <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-                <ScrollArea className="h-[70vh]">
+                <ScrollArea className="h-[70svh]">
                   {chats?.map((chat) => (
                     <ChatHistoryItem key={chat.id} chat={chat} />
                   ))}
@@ -93,7 +93,7 @@ export function ChatHistory() {
               </div>
             ) : (
               <div className="grid flex-1 items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-                <ScrollArea className="h-[85vh]">
+                <ScrollArea className="h-[85svh]">
                   {chats?.map((chat) => (
                     <ChatHistoryItem key={chat.id} chat={chat} />
                   ))}
