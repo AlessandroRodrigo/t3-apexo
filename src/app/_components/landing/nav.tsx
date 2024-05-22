@@ -76,6 +76,12 @@ const tools: { title: string; href: string; description: string }[] = [
       "Experience the power of OliWrite Pro, an AI inspired by our top scriptwriting expert, to transform your social media content. Don’t miss the chance to elevate your posts and stay ahead of the competition!",
     href: "/tools/oliwrite",
   },
+  {
+    title: "AdriCopy",
+    description:
+      "Unleash your copywriting potential with our tool that helps you write better, more persuasive copy. It's like having a copywriter in your pocket!",
+    href: "/tools/adricopy",
+  },
 ];
 
 export function Navigation() {
