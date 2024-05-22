@@ -1,9 +1,7 @@
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { ArrowDown, Instagram } from "lucide-react";
 import Image from "next/image";
 import { CallToAction } from "~/app/_components/landing/call-to-action";
 import { Navigation } from "~/app/_components/landing/nav";
-import { Button } from "~/components/ui/button";
 import {
   Card,
   CardContent,
