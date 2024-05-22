@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession, useUser } from "@clerk/nextjs";
 import { type Message, useAssistant } from "ai/react";
 import { CornerDownLeft, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -7,6 +8,7 @@ import { useEffect } from "react";
 import Markdown from "react-markdown";
 import gfm from "remark-gfm";
 import { ChatHistory } from "~/app/tools/oliwrite/[[...chatId]]/_components/chat-history";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import {
   Card,
@@ -58,6 +60,7 @@ export default function ScriptWriterPage({
 }: {
   params: { chatId: string[] };
 }) {
+  const { user } = useUser();
   const router = useRouter();
   const apiUtils = api.useUtils();
   const chatId = params.chatId?.[0];
@@ -154,18 +157,27 @@ export default function ScriptWriterPage({
               <div className="mx-4 mt-4">
                 {messages.map((m: Message, index: number) => (
                   <div key={m.id}>
-                    <strong>{`${m.role}: `}</strong>
-                    {m.role !== "data" && (
-                      <Markdown
-                        remarkPlugins={[gfm]}
-                        components={{
-                          hr: () => <div className="my-4" />,
-                        }}
-                        className="whitespace-pre-wrap"
-                      >
-                        {m.content}
-                      </Markdown>
-                    )}
+                    <div className="flex items-start gap-2">
+                      <Avatar className="h-5 w-5">
+                        <AvatarImage
+                          src={m.role === "user" ? user?.imageUrl : undefined}
+                        />
+                        <AvatarFallback>
+                          <div className="h-full w-full bg-gradient-to-tr from-primary to-green-300" />
+                        </AvatarFallback>
+                      </Avatar>
+                      {m.role !== "data" && (
+                        <Markdown
+                          remarkPlugins={[gfm]}
+                          components={{
+                            hr: () => <div className="my-4" />,
+                          }}
+                          className="whitespace-pre-wrap"
+                        >
+                          {m.content}
+                        </Markdown>
+                      )}
+                    </div>
                     {index !== messages.length - 1 && (
                       <Separator className="my-4" />
                     )}
