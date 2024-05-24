@@ -1,4 +1,5 @@
-import { Menu } from "lucide-react";
+import { Loader2, Menu } from "lucide-react";
+import { Suspense } from "react";
 import { ChatHistoryItem } from "~/app/_components/chat/history-item";
 import { NewChatButton } from "~/app/_components/chat/new-chat-button";
 import { Button } from "~/components/ui/button";
@@ -15,9 +16,7 @@ import {
 } from "~/components/ui/sheet";
 import { api } from "~/trpc/server";
 
-export async function ChatHistory() {
-  const chats = await api.chat.list();
-
+export function ChatHistory() {
   return (
     <>
       <header className="flex h-14 items-center justify-end gap-4 justify-self-end px-4 lg:hidden lg:h-[60px] lg:px-6">
@@ -42,15 +41,15 @@ export async function ChatHistory() {
               <NewChatButton />
             </SheetHeader>
             <Separator className="my-4" />
-            <div className="flex-1">
-              <div className="grid items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-                <ScrollArea className="h-[70svh]">
-                  {chats?.map((chat) => (
-                    <ChatHistoryItem key={chat.id} chat={chat} />
-                  ))}
-                </ScrollArea>
-              </div>
-            </div>
+            <Suspense
+              fallback={
+                <div className="flex flex-1 items-center justify-center">
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              }
+            >
+              <ChatList />
+            </Suspense>
           </SheetContent>
         </Sheet>
       </header>
@@ -66,17 +65,31 @@ export async function ChatHistory() {
 
             <NewChatButton />
           </CardHeader>
-          <div className="flex flex-1">
-            <div className="grid flex-1 items-start space-y-4 px-2 text-sm font-medium lg:px-4">
-              <ScrollArea className="h-[85svh]">
-                {chats?.map((chat) => (
-                  <ChatHistoryItem key={chat.id} chat={chat} />
-                ))}
-              </ScrollArea>
-            </div>
-          </div>
+          <Suspense
+            fallback={
+              <div className="flex flex-1 items-center justify-center">
+                <Loader2 className="h-5 w-5 animate-spin" />
+              </div>
+            }
+          >
+            <ChatList />
+          </Suspense>
         </div>
       </div>
     </>
+  );
+}
+
+async function ChatList() {
+  const chats = await api.chat.list();
+
+  return (
+    <div className="flex flex-1">
+      <div className="grid flex-1 items-start space-y-4 px-2 text-sm font-medium lg:px-4">
+        <ScrollArea className="h-[70svh] lg:h-[80svh]">
+          {chats?.map((chat) => <ChatHistoryItem key={chat.id} chat={chat} />)}
+        </ScrollArea>
+      </div>
+    </div>
   );
 }
