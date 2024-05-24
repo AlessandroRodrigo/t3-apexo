@@ -1,7 +1,7 @@
 "use client";
 
 import { Pencil, Plus } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Button } from "~/components/ui/button";
 
 export function NewChatButton() {
@@ -16,7 +16,7 @@ export function NewChatButton() {
       <Button
         size="icon"
         variant="outline"
-        className="mt-0 hidden lg:block"
+        className="mt-0 hidden md:flex"
         onClick={handleCreateNewChat}
       >
         <Plus className="h-5 w-5" />
