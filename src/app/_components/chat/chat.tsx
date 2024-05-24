@@ -165,7 +165,11 @@ export function Chat({ chatId }: Props) {
               className="h-9 w-10 md:w-9"
               disabled={isLoading}
             >
-              <CornerDownLeft className="h-4 w-4" />
+              {isLoading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <CornerDownLeft className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </form>
