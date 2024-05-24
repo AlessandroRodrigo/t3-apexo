@@ -17,7 +17,7 @@ const createContext = cache(() => {
 
   return createTRPCContext({
     headers: heads,
-    req: new NextRequest("", {
+    req: new NextRequest("https://notused.com", {
       headers: heads,
     }),
   });
