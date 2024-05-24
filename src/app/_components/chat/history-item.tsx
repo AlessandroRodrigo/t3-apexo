@@ -2,8 +2,7 @@
 
 import { Loader2, Trash } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useParams, useRouter } from "next/navigation";
 import { cn } from "~/lib/utils";
 import { api, type RouterOutputs } from "~/trpc/react";
 
