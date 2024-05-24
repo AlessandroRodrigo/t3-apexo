@@ -63,6 +63,8 @@ export async function ChatHistory() {
                 Select a chat to view its history
               </CardDescription>
             </div>
+
+            <NewChatButton />
           </CardHeader>
           <div className="flex flex-1">
             <div className="grid flex-1 items-start space-y-4 px-2 text-sm font-medium lg:px-4">
