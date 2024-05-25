@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import { Suspense } from "react";
 import { Chat } from "~/app/_components/chat/chat";
 import { ChatHistory } from "~/app/_components/chat/history";
 
@@ -41,7 +42,9 @@ export const metadata: Metadata = {
 export default function Page({ params }: { params: { chatId: string[] } }) {
   return (
     <div className="relative flex min-h-screen flex-col bg-muted/50 lg:flex-row">
-      <ChatHistory />
+      <Suspense>
+        <ChatHistory />
+      </Suspense>
       <Chat chatId={params.chatId?.[0]} />
     </div>
   );
