@@ -16,7 +16,7 @@ import {
 } from "~/components/ui/sheet";
 import { api } from "~/trpc/server";
 
-export function ChatHistory() {
+export async function ChatHistory() {
   return (
     <>
       <header className="flex h-14 items-center justify-end gap-4 justify-self-end px-4 lg:hidden lg:h-[60px] lg:px-6">
